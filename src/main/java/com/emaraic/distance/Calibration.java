@@ -135,10 +135,11 @@ public class Calibration {
             CvSeq ptr = new CvSeq();
             Mat m = new Mat(grabbedImage);
             for (ptr = contours; ptr != null; ptr = ptr.h_next()) {
+                /*Find Enclosing Circles*/
                 Point2f center = new Point2f();
                 FloatPointer radius = new FloatPointer(1f);
                 opencv_imgproc.minEnclosingCircle(new Mat(ptr), center, radius);
-
+                /*Check, if the color of the center picel is blue, it is our marker*/
                 if (isPixelBlue(imghsv, (int) center.x(), (int) center.y())) {
                     double area = opencv_imgproc.contourArea(new Mat(ptr), true);
                     if (area > 100) {

@@ -19,6 +19,7 @@ import static org.bytedeco.javacpp.opencv_core.cvCreateImage;
 import static org.bytedeco.javacpp.opencv_core.cvCreateMemStorage;
 import static org.bytedeco.javacpp.opencv_core.cvGetSize;
 import static org.bytedeco.javacpp.opencv_core.cvPoint;
+import org.bytedeco.javacpp.opencv_imgproc;
 import static org.bytedeco.javacpp.opencv_imgproc.COLOR_BGR2HSV;
 import static org.bytedeco.javacpp.opencv_imgproc.CV_BGR2GRAY;
 import static org.bytedeco.javacpp.opencv_imgproc.CV_CHAIN_APPROX_SIMPLE;
@@ -41,9 +42,7 @@ import org.bytedeco.javacv.OpenCVFrameGrabber;
 
 /**
  *
- * @author Taha Emara 
- * Website: http://www.emaraic.com 
- * Email : taha@emaraic.com
+ * @author Taha Emara Website: http://www.emaraic.com Email : taha@emaraic.com
  * Created on: Mar 10, 2018
  */
 public class DistanceMeasurement {
@@ -113,9 +112,11 @@ public class DistanceMeasurement {
                     CvSeq ptr = new CvSeq();
                     Mat m = new Mat(grabbedImage);
                     for (ptr = contours; ptr != null; ptr = ptr.h_next()) {
+                        /*Find Enclosing Circles*/
                         Point2f center = new Point2f();
                         FloatPointer radius = new FloatPointer(1f);
-                        minEnclosingCircle(new Mat(ptr), center, radius);
+                        opencv_imgproc.minEnclosingCircle(new Mat(ptr), center, radius);
+                        /*Check, if the color of the center picel is blue, it is our marker*/
                         if (isPixelBlue(imghsv, (int) center.x(), (int) center.y())) {
                             double area = contourArea(new Mat(ptr), true);
                             if (area > 100) {
@@ -125,7 +126,7 @@ public class DistanceMeasurement {
                                 System.out.println("Radius is " + rad);
                                 double distance = (FOCAL_LENGTH * RADIUS_OF_MARKER) / rad;
                                 System.out.println("Distance in cm " + distance);
-                                putText(m, "Distance is : "+distance + " cm", new Point(200, 100), 0, 0.5, new Scalar(0, 255, 0, 0));
+                                putText(m, "Distance is : " + distance + " cm", new Point(200, 100), 0, 0.5, new Scalar(0, 255, 0, 0));
                             }
                         }
                     }//End for  countors
