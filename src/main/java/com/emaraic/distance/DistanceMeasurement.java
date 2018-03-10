@@ -31,7 +31,6 @@ import static org.bytedeco.javacpp.opencv_imgproc.cvCvtColor;
 import static org.bytedeco.javacpp.opencv_imgproc.cvFindContours;
 import static org.bytedeco.javacpp.opencv_imgproc.cvThreshold;
 import static org.bytedeco.javacpp.opencv_imgproc.cvtColor;
-import static org.bytedeco.javacpp.opencv_imgproc.minEnclosingCircle;
 import static org.bytedeco.javacpp.opencv_imgproc.putText;
 import static org.bytedeco.javacpp.opencv_imgproc.resize;
 import org.bytedeco.javacv.CanvasFrame;
@@ -42,7 +41,9 @@ import org.bytedeco.javacv.OpenCVFrameGrabber;
 
 /**
  *
- * @author Taha Emara Website: http://www.emaraic.com Email : taha@emaraic.com
+ * @author Taha Emara 
+ * Website: http://www.emaraic.com 
+ * Email : taha@emaraic.com
  * Created on: Mar 10, 2018
  */
 public class DistanceMeasurement {
@@ -75,7 +76,7 @@ public class DistanceMeasurement {
         try {
             OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0);
             grabber.start();
-            CanvasFrame canvas = new CanvasFrame("Distance Measuremtn - Emaraic");
+            CanvasFrame canvas = new CanvasFrame("Distance Measurement - Emaraic");
 
             canvas.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
             canvas.setCanvasSize(660, 660);
